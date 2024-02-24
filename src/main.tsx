@@ -1,0 +1,6 @@
+import ReactDOM from "react-dom/client";
+import './styles.scss'
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+    <div>Hello</div>
+)
