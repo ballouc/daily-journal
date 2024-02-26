@@ -7,13 +7,16 @@ body {
     padding: 0;
 
     font-family: "Montserrat", sans-serif;
-    font-weight: 700;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
     height: calc(100vh - 3px);
+}
+
+.bold{
+    font-weight: 700;
 }
 
 #app-container{
@@ -49,6 +52,12 @@ body {
 
 #open-entry{
     border-right: 1px solid black;
+
+}
+
+#selected-title{
+    margin: 15px auto 0 auto;
+    text-align: center;
 }
 
 #entry-list{
