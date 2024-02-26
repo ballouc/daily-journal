@@ -17,9 +17,6 @@ const Entry: React.FC<Props> = ({ title }) => {
 
   return (
     <>
-
-    {/* ADAM SHOULD I HAVE AN INPUT COMPONENT WITH TYPE, VALUE, TITLE PROPERTIES? WHAT IS THE BEST WAY TO STORE THE VARIATIONS ON MY INPUT TYPES? */}
-    {/* IE: CHECKBOX WONT HAVE VALUE, TEXTAREA HAS VALUE TITLE AND TYPE!! */}
         <div className="bold">{title}</div>
         {entryInputs.map((input, index) => {
             return(
