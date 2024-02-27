@@ -113,6 +113,17 @@ body {
             background-color: $white;
         }
     }
+    #previous-month{
+        margin-left: 5px;
+    }
+    #current-month{
+        font-size: 24px;
+        letter-spacing: 5px;
+        margin: 5px auto;
+    }
+    #next-month{
+        margin-right: 5px;
+    }
 }
 
 #select-arrow{
@@ -166,9 +177,44 @@ body {
     align-items: center;
     justify-content: space-between;
 
-    #gratitude, #notes{
-        width: 280px;
-        resize: none;
+
+    
+    #selected-title{
+        font-size: 24px;
+        text-decoration: underline 4px;
+    }
+
+    .entry-text-container{
+        display: flex;
+        flex-direction: column;
+
+
+        label{
+            font-size: 24px;
+            letter-spacing: 5px;
+        }
+
+        #gratitude, #notes{
+            width: 280px;
+            resize: none;
+            outline: 0;
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 5px;
+            font-size: 1.2rem;
+        }
+
+        #gratitude{
+            height: 120px;
+        }
+
+        #notes{
+            height: 230px;
+        }
+    }
+
+    #entry-save-btn{
+        margin-bottom: 20px;
     }
 }
 

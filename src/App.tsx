@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faGear, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight, faGear, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface Entry {
     date: Date;
@@ -13,7 +13,8 @@ const App: React.FC = () => {
     const [entryList, setEntryList] = useState<Entry[]>([]);
     const [selectedEntryKey, setSelectedEntryKey] = useState<string | null>(null);
     const [isEditing, setIsEditing] = useState<boolean>(false);
-
+    const [gratitude, setGratitude] = useState<string>("");
+    const [notes, setNotes] = useState<string>("");
 
     const handleNewEntry = () => {
         const addEntryPrompt = prompt("Task name");
@@ -28,27 +29,46 @@ const App: React.FC = () => {
     };
 
     const findEntryIndex = (entryKey: string | null) => {
-        if(!entryKey) return;
+        if (!entryKey) return;
 
         return entryList.findIndex((entry) => entryKey === entry.entryKey);
     }
 
     const handleSelectEntry = (entryKey: string) => {
         // return statement as to not unselect the entry on click
-        if(selectedEntryKey === entryKey) return;
+        if (selectedEntryKey === entryKey) return;
 
-        setSelectedEntryKey(entryKey === selectedEntryKey ? null : entryKey);
+        setSelectedEntryKey(entryKey);
+        const selectedEntry = entryList.find(entry => entry.entryKey === entryKey);
+        if (selectedEntry) {
+            setGratitude(selectedEntry.entryData[0] || "");
+            setNotes(selectedEntry.entryData[1] || "");
+        }
+    };
+
+    const handleSaveEntry = () => {
+        if (!selectedEntryKey) return;
+
+        const updatedEntryList = entryList.map(entry => {
+            if (entry.entryKey === selectedEntryKey) {
+                return {
+                    ...entry,
+                    entryData: [gratitude, notes]
+                };
+            }
+            return entry;
+        });
+
+        setEntryList(updatedEntryList);
     };
 
     const handleSettings = () => {
-        if(!selectedEntryKey) return;
-
-        
+        if (!selectedEntryKey) return;
     };
 
     return (
         <div id="app-container">
-            <button id="settings-btn" onClick={() => handleSettings}>
+            <button id="settings-btn" onClick={handleSettings}>
                 <FontAwesomeIcon icon={faGear} />
             </button>
             {!isEditing ? (
@@ -59,12 +79,15 @@ const App: React.FC = () => {
                                 ? entryList.find((entry) => entry.entryKey === selectedEntryKey)?.title || "Select an Entry"
                                 : "Select an Entry"}
                         </div>
-                        <div id="gratitude-container">
-                            <textarea id="gratitude"></textarea>
+                        <div id="gratitude-container" className="entry-text-container">
+                            <label htmlFor="gratitude" className="bold">Daily Gratitude</label>
+                            <textarea id="gratitude" value={gratitude} onChange={(e) => setGratitude(e.target.value)}></textarea>
                         </div>
-                        <div id="notes-container">
-                            <textarea id="notes"></textarea>
+                        <div id="notes-container" className="entry-text-container">
+                            <label htmlFor="notes" className="bold">Notes</label>
+                            <textarea id="notes" value={notes} onChange={(e) => setNotes(e.target.value)}></textarea>
                         </div>
+                        <button className="large-btn bold" id="entry-save-btn" onClick={handleSaveEntry}>Save</button>
                     </div>
                     <div id="entry-list" className="half-container">
                         <div id="list-date-container">
@@ -72,10 +95,10 @@ const App: React.FC = () => {
                                 <FontAwesomeIcon icon={faArrowLeft} />
                             </button>
                             <p id="current-month" className="bold">
-                                Month / Year
+                                Month - Year
                             </p>
                             <button id="next-month">
-                                <FontAwesomeIcon icon={faPlus} />
+                                <FontAwesomeIcon icon={faArrowRight} />
                             </button>
                         </div>
                         {entryList.map((entry) => (
@@ -84,7 +107,6 @@ const App: React.FC = () => {
                                 className={`list-entry-container entry-shorthand ${selectedEntryKey === entry.entryKey ? "selected" : ""}`}
                                 onClick={() => handleSelectEntry(entry.entryKey)}
                             >
-                                {/* If the arrowIndex is the index of this shorthand element, generate the arrow. */}
                                 {(selectedEntryKey === entry.entryKey) ? <FontAwesomeIcon id="select-arrow" icon={faArrowLeft}></FontAwesomeIcon> : ''}
                                 <div className="bold entry-shorthand-title">{entry.title}</div>
                                 <div className="bold entry-shorthand-date">{`${entry.date.getMonth() + 1}/${entry.date.getDate()}`}</div>
