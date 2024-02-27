@@ -34,12 +34,14 @@ const App: React.FC = () => {
     };
 
     const handleSettings = () => {
-        // Handling settings logic here
+        if(!selectedEntryKey) return;
+
+        
     };
 
     return (
         <div id="app-container">
-            <button id="settings-btn" onClick={handleSettings}>
+            <button id="settings-btn" onClick={() => handleSettings}>
                 <FontAwesomeIcon icon={faGear} />
             </button>
             {!isEditing ? (
