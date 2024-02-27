@@ -126,12 +126,20 @@ body {
     flex-direction: row;
     font-size: 24px;
     letter-spacing: 3px;
+    user-select: none;
+
+    div{
+        cursor: pointer;
+        height: 29px;
+    }
+    
     .entry-shorthand-title{
         margin: 13px auto 0 22px;
     }
     .entry-shorthand-date{
         margin: 13px 21px 0 0;
     }
+
 }
 
 
