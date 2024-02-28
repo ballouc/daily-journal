@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight, faGear, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight, faGear } from "@fortawesome/free-solid-svg-icons";
 
 interface Entry {
     date: Date;
@@ -15,6 +15,8 @@ const App: React.FC = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [gratitude, setGratitude] = useState<string>("");
     const [notes, setNotes] = useState<string>("");
+
+    
 
     useEffect(() => {
         const storedEntries = localStorage.getItem('entries');
@@ -49,11 +51,11 @@ const App: React.FC = () => {
         setEntryList([...entryList, newEntry]);
     };
 
-    const findEntryIndex = (entryKey: string | null) => {
-        if (!entryKey) return;
+    // const findEntryIndex = (entryKey: string | null) => {
+    //     if (!entryKey) return;
 
-        return entryList.findIndex((entry) => entryKey === entry.entryKey);
-    }
+    //     return entryList.findIndex((entry) => entryKey === entry.entryKey);
+    // }
 
     const handleSelectEntry = (entryKey: string) => {
         // return statement as to not unselect the entry on click
@@ -84,7 +86,7 @@ const App: React.FC = () => {
     };
 
     const handleSettings = () => {
-        if (!selectedEntryKey) return;
+        setIsEditing(true);
     };
 
     return (
