@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight, faGear, faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -15,6 +15,27 @@ const App: React.FC = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [gratitude, setGratitude] = useState<string>("");
     const [notes, setNotes] = useState<string>("");
+
+    useEffect(() => {
+        const storedEntries = localStorage.getItem('entries');
+        if (storedEntries) {
+            try {
+                const parsedEntries: Entry[] = JSON.parse(storedEntries);
+                // Convert date strings back to Date objects
+                parsedEntries.forEach(entry => {
+                    entry.date = new Date(entry.date);
+                });
+                setEntryList(parsedEntries);
+            } catch (error) {
+                console.error('Error parsing stored entries:', error);
+            }
+        }
+    }, []);
+    
+
+    useEffect(() => {
+        localStorage.setItem('entries', JSON.stringify(entryList));
+    }, [entryList]);
 
     const handleNewEntry = () => {
         const addEntryPrompt = prompt("Task name");
