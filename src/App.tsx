@@ -86,8 +86,14 @@ const App: React.FC = () => {
     };
 
     const handleSettings = () => {
-        setIsEditing(true);
+        setIsEditing(!isEditing);
     };
+
+    const deleteStorage = () => {
+        localStorage.clear();
+        setSelectedEntryKey(null);
+        setEntryList([]);
+    }
 
     return (
         <div id="app-container">
@@ -102,15 +108,21 @@ const App: React.FC = () => {
                                 ? entryList.find((entry) => entry.entryKey === selectedEntryKey)?.title || "Select an Entry"
                                 : "Select an Entry"}
                         </div>
-                        <div id="gratitude-container" className="entry-text-container">
-                            <label htmlFor="gratitude" className="bold">Daily Gratitude</label>
-                            <textarea id="gratitude" value={gratitude} onChange={(e) => setGratitude(e.target.value)}></textarea>
-                        </div>
-                        <div id="notes-container" className="entry-text-container">
-                            <label htmlFor="notes" className="bold">Notes</label>
-                            <textarea id="notes" value={notes} onChange={(e) => setNotes(e.target.value)}></textarea>
-                        </div>
-                        <button className="large-btn bold" id="entry-save-btn" onClick={handleSaveEntry}>Save</button>
+                        {selectedEntryKey && (
+                            <>
+                                <div id="gratitude-container" className="entry-text-container">
+                                    <label htmlFor="gratitude" className="bold">Daily Gratitude</label>
+                                    <textarea id="gratitude" value={gratitude} onChange={(e) => setGratitude(e.target.value)}></textarea>
+                                </div>
+                                <div id="notes-container" className="entry-text-container">
+                                    <label htmlFor="notes" className="bold">Notes</label>
+                                    <textarea id="notes" value={notes} onChange={(e) => setNotes(e.target.value)}></textarea>
+                                </div>
+                            </>
+                        )}
+                        {selectedEntryKey && (
+                            <button className="large-btn bold" id="entry-save-btn" onClick={handleSaveEntry}>Save</button>
+                        )}
                     </div>
                     <div id="entry-list" className="half-container">
                         <div id="list-date-container">
@@ -118,7 +130,7 @@ const App: React.FC = () => {
                                 <FontAwesomeIcon icon={faArrowLeft} />
                             </button>
                             <p id="current-month" className="bold">
-                                Month - Year
+                                {new Date().toLocaleString('default', {month: 'long'})}
                             </p>
                             <button id="next-month">
                                 <FontAwesomeIcon icon={faArrowRight} />
@@ -145,7 +157,8 @@ const App: React.FC = () => {
             ) : (
                 <>
                     <div id="edit-container">
-
+                        <h1 className="bold">Settings</h1>
+                        <button className="large-btn bold" onClick={deleteStorage}>Delete All</button>
                     </div>
                 </>
             )}
