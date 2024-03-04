@@ -2,7 +2,6 @@
 $body-color: #FFF9F0;
 $white: #ffffff;
 
-// Body styling
 body {
     background-color: $body-color;
     margin: 0;
@@ -14,7 +13,6 @@ body {
     height: calc(100vh - 3px);
 }
 
-// Large Button Styling
 .large-btn {
     width: 305px;
     height: 45px;
@@ -76,7 +74,6 @@ body {
     }
 }
 
-// General Styling
 .bold {
     font-weight: 700;
 }
@@ -96,6 +93,8 @@ body {
         justify-content: center;
         border-bottom: 2px solid black;
         width: 100%;
+        border-top-right-radius: 19px;
+        background-color: white;
 
         button {
             border: none;
@@ -119,13 +118,6 @@ body {
     }
 }
 
-
-// Dude this arrow is gonna kill me HAHAHAHAHAHAa
-#select-arrow {
-    position: absolute;
-    transform: translateX(911px);
-}
-
 #settings-btn {
     position: absolute;
     border: none;
@@ -145,13 +137,13 @@ body {
 
 @keyframes rotate-twice {
     0% {
-        transform: rotate(0deg) scale(1);
+        transform: rotate(0deg) ;
     }
     50% {
-        transform: rotate(720deg) scale(1.2);
+        transform: rotate(720deg) ;
     }
     100% {
-        transform: rotate(1440deg) scale(1);
+        transform: rotate(1440deg) ;
     }
 }
 
@@ -214,21 +206,24 @@ body {
     border-left: 1px solid black;
     overflow-y: auto;
     overflow-x: hidden;
-    scrollbar-width: thin; /* Width of the scrollbar */
-    scrollbar-color: transparent transparent; /* Color of the thumb and track */
+    scrollbar-width: none;
+    background-image: url('./assets/star-background.png');
+    background-repeat: repeat;
+    background-position: center;
 }
 
+
 #entry-list::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
+    width: 8px;
 }
 
 #entry-list::-webkit-scrollbar-track {
-    background-color: transparent; /* Background color of the track */
+    background-color: transparent;
 }
 
 #entry-list::-webkit-scrollbar-thumb {
-    background-color: black; /* Color of the thumb */
-    border-radius: 10px; /* Rounded corners for the thumb */
+    background-color: black;
+    border-radius: 10px;
 }
 
 
@@ -236,6 +231,31 @@ body {
     width: 410px;
     height: 105px;
     border-bottom: 2px solid black;
+    background-color: white;
+    overflow: visible;
+}
+
+.entry-container {
+    position: relative;
+
+}
+
+.select-arrow {
+    position: absolute;
+    animation: oscillate 1.5s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+    font-size: 2.5rem;
+}
+
+@keyframes oscillate {
+    0% {
+        transform: translateX(0px);
+    }
+    50% {
+        transform: translateX(430px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
 }
 
 .entry-shorthand {
@@ -259,26 +279,29 @@ body {
     }
 }
 
-#select-arrow {
-    transform: translate(430px, 20px);
-    font-size: 4rem;
-    animation: oscillate 1.5s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
-}
-
-@keyframes oscillate {
-    0% {
-        transform: translate(430px, 20px);
-    }
-    50% {
-        transform: translate(450px, 20px);
-    }
-    100% {
-        transform: translate(430px, 20px);
-    }
-}
 
 #add-entry-container {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#edit-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    #settings-title{
+        margin-bottom: auto;
+    }
+
+    #delete-all-btn{
+        margin-bottom: 50px;
+    }
+}
+
+.hidden{
+    display: none;
 }
